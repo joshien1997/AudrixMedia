@@ -4,17 +4,25 @@ import MainAppScreen from './screens/main/MainApp';
 import RegisterScreen from './screens/auth/Register';
 import LoginScreen from './screens/auth/Login';
 import CheckAuthScreen from './CheckAuth';
+import MainAuthScreen from './screens/auth/MainAuth';
 
 const AppStack = createStackNavigator(
     {
-        MainApp: MainAppScreen,  
+        MainApp: MainAppScreen,
+    },
+    {
+        headerMode: 'none',
     }
 );
 
 const AuthStack = createStackNavigator(
     {
+        MainAuth: MainAuthScreen,
         Register: RegisterScreen,
         Login: LoginScreen,
+    },
+    {
+        headerMode: 'none',
     }
 );
 

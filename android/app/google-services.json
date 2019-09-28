@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "888948460740",
+    "firebase_url": "https://audrix-ac0d8.firebaseio.com",
+    "project_id": "audrix-ac0d8",
+    "storage_bucket": "audrix-ac0d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888948460740:android:f927539b8bb5ee4fbf8d91",
+        "android_client_info": {
+          "package_name": "com.audrix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888948460740-vc9420kcsf73r5lsput97mgleos808tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB42uLYLaq-gXMFHol9Lcvhm7e7DWnTQAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888948460740-vc9420kcsf73r5lsput97mgleos808tu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
