@@ -4,18 +4,39 @@ import { colorsApp } from '../../../../configs/colorsApp';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: colorsApp.black,
+        padding: 20,
+    },
+
+    title: {
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colorsApp.black,
+        marginBottom: 40,
+    },
+
+    titleText: {
+        color: '#fff',
+        fontSize: 25,
+    },
+
+    fillField: {
+        width: '100%',
+        marginTop: 12,
+    },
+
+    titleFill: {
+        color: '#fff',
+        fontSize: 15,
+        marginBottom: 10,
     },
 
     inputText: {
-        width: '80%',
+        width: '100%',
         height: 50,
-        borderRadius: 25,
+        borderRadius: 5,
         borderColor: '#ccc',
         borderWidth: 0.5,
-        marginTop: 12,
         paddingVertical: 0,
         paddingHorizontal: 15,
         fontSize: 15,
@@ -28,8 +49,8 @@ const styles = StyleSheet.create({
     },
 
     btnSignUp: {
-        marginTop: 10,
-        width: '80%',
+        marginTop: 25,
+        width: '100%',
         height: 50,
         borderRadius: 25,
         backgroundColor: colorsApp.green,

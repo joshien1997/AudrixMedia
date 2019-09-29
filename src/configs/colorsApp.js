@@ -1,4 +1,4 @@
 export const colorsApp = {
-    green: '#1db954',
+    green: '#1DB954',
     black: '#191414',
 }

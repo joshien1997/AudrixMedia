@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
     textBtn: {
         color: '#fff',
-        fontSize: 15,
+        fontSize: 13,
     }
 });
 
