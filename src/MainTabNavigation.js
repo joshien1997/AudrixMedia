@@ -33,7 +33,7 @@ const AppSwitch = createSwitchNavigator(
         CheckAuth: CheckAuthScreen,
     },
     {
-        initialRouteName: 'CheckAuth',
+        initialRouteName: 'Auth',
     }
 );
 

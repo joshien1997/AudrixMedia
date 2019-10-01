@@ -34,6 +34,8 @@ target 'Audrix' do
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'AudrixTests' do
     inherit! :search_paths
     # Pods for testing

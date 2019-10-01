@@ -1,73 +1,107 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import firebase from 'react-native-firebase';
 import styles from './styles/index.css';
 import MediumText from '../../../base/components/Text/MontserratText/MediumText';
 import RegularText from '../../../base/components/Text/MontserratText/RegularText';
 import SemiBoldText from '../../../base/components/Text/MontserratText/SemiBold';
 import KeyBoardAvoidingView from '../../../base/components/KeyBoardAvoidingView';
 
+const regexCheckEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/igm;
+
 class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: '',
             passwordConfirm: '',
-            isPassEqual: false,
+            isPassed: false,
             isFocusedConfirm: false,
+            isLegitEmail: false,
+            errorMessage: null,
+            isSubmited: false,
         };
     }
 
-    onChangeUserName = (text) => {
-        this.setState({ username: text });
+    onChangeEmail = (text) => {
+        this.setState({ email: text }, () => this.checkEmail(this.state.email));
     }
 
     onChangePassword = (text) => {
-        this.setState({ password: text });
+        this.setState({ password: text }, () => this.checkPassword(this.state.password));
     }
 
     onChangePasswordConfirm = (text) => {
-        this.setState({ passwordConfirm: text }, () => this.checkPasswordConfirm(this.state.passwordConfirm));
+        this.setState({ passwordConfirm: text }, () => this.checkPassword(this.state.passwordConfirm));
     }
 
-    checkPasswordConfirm = (passwordConfirm) => {
-        const { password } = this.state;
-        if (password !== passwordConfirm) {
+    checkEmail = (email) => {
+        if (email !== '' && regexCheckEmail.test(String(email).toLowerCase())) {
             this.setState({
-                isPassEqual: false,
+                isLegitEmail: true,
             });
         } else {
             this.setState({
-                isPassEqual: true,
+                isLegitEmail: false,
             });
         }
     }
 
-    onFocusConfirm = () => {
+    checkPassword = (param) => {
+        const { password, passwordConfirm } = this.state;
+        if (param !== '' && param !== passwordConfirm || param !== password) {
+            this.setState({
+                isPassed: false,
+            });
+        } else {
+            this.setState({
+                isPassed: true,
+            });
+        }
+    }
+
+    onFocusedConfirm = () => {
         this.setState({
             isFocusedConfirm: true,
         });
     }
 
+    handleSignUp = () => {
+        const { email, password, isPassed, isLegitEmail } = this.state;
+        this.setState({
+            isSubmited: true,
+        });
+        if (isPassed && isLegitEmail) {
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then(() => this.props.navigation.navigate('App'))
+                .catch(error => this.setState({ errorMessage: error.message }));
+        }
+    }
+
     render() {
-        const { username, password, passwordConfirm, isPassEqual, isFocusedConfirm } = this.state;
+        const { email, password, passwordConfirm, isPassed, isFocusedConfirm, isLegitEmail, errorMessage, isSubmited } = this.state;
         return (
             <KeyBoardAvoidingView style={styles.container}>
-                <ScrollView style={{flex: 1}} >
+                <ScrollView style={{ flex: 1 }} >
                     <View style={styles.title}>
                         <SemiBoldText style={styles.titleText}>Create account</SemiBoldText>
                     </View>
+                    {errorMessage && <RegularText style={styles.textNote}>{errorMessage}</RegularText>}
 
                     <View style={styles.fillField}>
-                        <RegularText style={styles.titleFill}>Your username</RegularText>
+                        <RegularText style={styles.titleFill}>Your email</RegularText>
                         <TextInput
                             autoCapitalize="none"
-                            onChangeText={this.onChangeUserName}
-                            value={username}
+                            onChangeText={this.onChangeEmail}
+                            value={email}
                             style={styles.inputText}
                             placeholderTextColor={"#fff"}
                         />
                     </View>
+                    {!isLegitEmail && isSubmited && <RegularText style={styles.textNote}>Email not available</RegularText>}
 
                     <View style={styles.fillField}>
                         <RegularText style={styles.titleFill}>Your password</RegularText>
@@ -82,7 +116,7 @@ class Register extends React.Component {
                     </View>
 
                     <View style={styles.fillField}>
-                        <RegularText style={styles.titleFill}>Confirm your username</RegularText>
+                        <RegularText style={styles.titleFill}>Confirm your password</RegularText>
                         <TextInput
                             secureTextEntry={true}
                             autoCapitalize="none"
@@ -90,15 +124,16 @@ class Register extends React.Component {
                             value={passwordConfirm}
                             style={styles.inputText}
                             placeholderTextColor={"#fff"}
-                            onFocus={this.onFocusConfirm}
+                            onFocus={this.onFocusedConfirm}
                         />
                         {
-                            !isPassEqual && isFocusedConfirm ? <RegularText style={styles.textNote}>Password not match</RegularText> : null
+                            !isPassed && isFocusedConfirm ? <RegularText style={styles.textNote}>Password not match</RegularText> : null
                         }
                     </View>
 
                     <TouchableOpacity
                         style={styles.btnSignUp}
+                        onPress={this.handleSignUp}
                     >
                         <MediumText style={styles.textSignUp}>Sign Up</MediumText>
                     </TouchableOpacity>

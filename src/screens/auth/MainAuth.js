@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, Dimensions } from 'react-native';
-import styles from './styles/index.css';
+import SplashScreen from 'react-native-splash-screen';
+import firebase from 'react-native-firebase';
+
 import MediumText from '../../base/components/Text/MontserratText/MediumText';
+
+import styles from './styles/index.css';
+
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
@@ -9,6 +14,13 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            this.props.navigation.navigate(user ? 'App' : 'Auth');
+            SplashScreen.hide();
+        });
     }
 
     onNavigateSignUp = () => {

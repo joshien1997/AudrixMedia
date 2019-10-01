@@ -52,11 +52,11 @@ import com.android.build.OutputFile
  *   // where to put the JS bundle asset in release mode
  *   jsBundleDirRelease: "$buildDir/intermediates/assets/release",
  *
- *   // where to put drawable resources / React Native assets, e.g. the ones you use via
+ *   // where to put layout resources / React Native assets, e.g. the ones you use via
  *   // require('./image.png')), in debug mode
  *   resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
  *
- *   // where to put drawable resources / React Native assets, e.g. the ones you use via
+ *   // where to put layout resources / React Native assets, e.g. the ones you use via
  *   // require('./image.png')), in release mode
  *   resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
  *
@@ -164,6 +164,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-splash-screen')
     implementation project(':react-native-firebase')
     implementation project(':react-native-video')
     implementation project(':react-native-gesture-handler')
@@ -171,8 +172,12 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
+
+    // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.firebase:firebase-core:16.0.9"
+    // implementation "com.google.firebase:firebase-messaging:18.0.0"
+    implementation "com.google.firebase:firebase-auth:17.0.0"
 
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     // JSC from node_modules
